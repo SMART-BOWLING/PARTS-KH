@@ -1059,16 +1059,15 @@
 } else if (entry.fileUrl) {
   const img = document.createElement('img');
 
-  img.src = entry.fileUrl.replace(
-    '/upload/',
-    '/upload/f_auto,q_auto,w_900,c_limit/'
-  );
+  // Используем готовый оптимизированный URL Cloudinary
+  img.src = entry.fileUrl;
 
   img.loading = 'lazy';
   img.decoding = 'async';
 
   media.appendChild(img);
 }
+
 
 
       const overlay = document.createElement('div');
