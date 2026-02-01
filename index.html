@@ -1056,11 +1056,20 @@
         const iframe = document.createElement('iframe');
         iframe.src = entry.fileUrl;
         media.appendChild(iframe);
-      } else if (entry.fileUrl) {
-        const img = document.createElement('img');
-        img.src = entry.fileUrl;
-        media.appendChild(img);
-      }
+} else if (entry.fileUrl) {
+  const img = document.createElement('img');
+
+  img.src = entry.fileUrl.replace(
+    '/upload/',
+    '/upload/f_auto,q_auto,w_900,c_limit/'
+  );
+
+  img.loading = 'lazy';
+  img.decoding = 'async';
+
+  media.appendChild(img);
+}
+
 
       const overlay = document.createElement('div');
       overlay.className = 'img-overlay';
