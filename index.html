@@ -1,9 +1,9 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <title>ДЕТАЛИ KH</title>
-   <link rel="icon" type="image/png" href="https://i.postimg.cc/dtSpKx0W/1.png" />
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/dtSpKx0W/1.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Identity Script -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -18,16 +18,21 @@
     .site-name {
       flex: 1;
       text-align: center;
-      font-size: 48px;
       font-weight: bold;
       color: white;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
     
-    /* Увеличиваем надпись KH в 2 раза */
-    .site-name-dropdown .site-name {
-      font-size: 96px; /* Увеличение в 2 раза */
-      margin-bottom: 20px; /* Отступ снизу для визуального разделения */
+    /* Базовые стили для надписи KH */
+    .site-name-text {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      vertical-align: middle;
     }
     
     .dropdown-sites {
@@ -46,19 +51,17 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     
-.dropdown-sites a {
-  display: block;
-  padding: 20px 100px;
-  font-size: 40px;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-  transition: background 0.3s;
-  text-align: center;
-
-  white-space: nowrap; /* 🚫 запрещаем перенос */
-}
-
+    .dropdown-sites a {
+      display: block;
+      padding: 20px 100px;
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+      text-align: center;
+      white-space: nowrap; /* 🚫 запрещаем перенос */
+    }
     
     .dropdown-sites a:hover {
       background-color: #374151;
@@ -162,6 +165,11 @@
       display: none;
       width: 100%;
       margin-top: 170px;
+      max-width: 1300px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 8px;
+      box-sizing: border-box;
     }
 
     body {
@@ -171,17 +179,18 @@
       font-family: Arial, sans-serif;
     }
 
+    /* ИСПРАВЛЕНО: Убраны зазоры между кнопками */
     .top-controls {
       display: flex;
       flex-wrap: nowrap;
-      justify-content: space-between; 
+      justify-content: space-between;
       gap: 8px;
-      max-width: 900px;
-      margin: 0 auto 20px;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto 12px;
       align-items: center;
-      padding-bottom: 8px;
+      padding: 0 4px 8px;
       box-sizing: border-box;
-      overflow-x: auto;
     }
 
     .top-controls .btn-top {
@@ -191,18 +200,17 @@
       border: none;
       cursor: pointer;
       white-space: nowrap;
-      flex-grow: 1;
-      min-width: 90px;
-      max-width: 220px;
+      flex: 1;
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 600;
       font-family: inherit;
-      padding: 0 16px;
+      padding: 0 10px;
       transition: all 0.3s ease;
       box-sizing: border-box;
-      gap: 8px;
+      gap: 6px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
@@ -219,13 +227,12 @@
 
     .select-wrapper {
       position: relative;
-      min-width: 120px;
-      max-width: 150px;
+      flex: 1;
       height: 56px;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      flex-shrink: 0;
+      min-width: 0;
     }
 
     .select-wrapper select {
@@ -489,44 +496,53 @@
       transform: scale(1.05);
     }
 
+    /* ИСПРАВЛЕНО: Контролы карточки - компактнее */
     .controls {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap; /* Запрещаем перенос */
       align-items: center;
       justify-content: space-between;
       margin-top: 16px;
-      gap: 8px;
-      padding: 10px 0;
+      gap: 6px; /* Уменьшаем зазор */
+      padding: 8px 0;
+      overflow: hidden; /* Скрываем переполнение */
     }
 
-   .pill {
-  background: #fff;
-  border-radius: 20px;
-  padding: 0 20px; /* убираем вертикальный padding */
-  font-size: 20px;
-  font-weight: bold;
-  flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  height: 60px; /* фиксированная высота */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box; /* важно: padding включается в height */
-}
+    /* Стили для подложки номера детали (pill) */
+    .pill {
+      background: #fff;
+      border-radius: 20px;
+      padding: 0 15px;
+      font-size: 18px;
+      font-weight: bold;
+      flex-shrink: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 120px;
+    }
 
     .controls input {
-      width: 60px;
-      height: 60px;
-      padding: 0 12px;
+      width: 50px; /* Уменьшаем ширину */
+      height: 50px; /* Уменьшаем высоту */
+      padding: 0 8px; /* Уменьшаем отступы */
       border: none;
-      border-radius: 16px;
+      border-radius: 12px;
       text-align: center;
       background: #fff;
-      font-size: 20px;
+      font-size: 18px; /* Уменьшаем шрифт */
       font-weight: bold;
       flex-shrink: 0;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: all 0.2s ease;
+      min-width: 50px;
     }
 
     .controls input:focus {
@@ -535,19 +551,21 @@
     }
 
     .btn {
-      height: 60px;
-      padding: 0 24px;
+      height: 50px; /* Уменьшаем высоту */
+      padding: 0 15px; /* Уменьшаем отступы */
       border: none;
-      border-radius: 16px;
-      font-size: 20px;
+      border-radius: 12px;
+      font-size: 16px; /* Уменьшаем шрифт */
       font-weight: bold;
       cursor: pointer;
       flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px; /* Уменьшаем зазор */
       transition: all 0.2s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      min-width: 0;
     }
 
     .btn:hover {
@@ -563,7 +581,7 @@
     .btn-add {
       background: linear-gradient(to bottom, #1f2937, #0d1520);
       color: #fff;
-      min-width: 140px;
+      min-width: 120px; /* Уменьшаем минимальную ширину */
     }
 
     .btn-add:hover {
@@ -573,7 +591,8 @@
     .btn-info {
       background: linear-gradient(to bottom, #ffffff, #f0f0f0);
       color: #000;
-      min-width: 60px;
+      min-width: 50px; /* Уменьшаем минимальную ширину */
+      padding: 0 10px; /* Уменьшаем отступы */
       justify-content: center;
     }
 
@@ -584,7 +603,7 @@
     .btn-take {
       background: linear-gradient(to bottom, #dc143c, #b01030);
       color: #fff;
-      min-width: 140px;
+      min-width: 120px; /* Уменьшаем минимальную ширину */
     }
 
     .btn-take:hover {
@@ -668,12 +687,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 50px 0; /* Увеличил отступы сверху и снизу */
+      margin: 50px 0;
       gap: 10px;
       flex-wrap: nowrap;
       width: 100%;
-      max-width: 900px;
-      margin: 50px auto; /* Автоматические отступы по бокам и 50px сверху/снизу */
+      max-width: 1300px;
+      margin: 50px auto;
+      padding: 0 8px;
+      box-sizing: border-box;
     }
 
     .pagination button {
@@ -791,6 +812,580 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
+    /* Для мобильных устройств (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      /* РАЗМЕР ШРИФТА ДЛЯ МОБИЛЬНЫХ - МОЖНО МЕНЯТЬ */
+      .site-name-text {
+        font-size: 50px; /* ← ИЗМЕНИ ЭТО ЧИСЛО ДЛЯ МОБИЛЬНЫХ */
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        line-height: 1.2;
+      }
+      
+      /* ИСПРАВЛЕНО: Выравнивание всей шапки для мобильных */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 30px;
+        height: 140px;
+      }
+      
+      .site-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      
+      body {
+        padding: 20px;
+      }
+      
+      .cards.desktop-layout,
+      .card.desktop-layout {
+        width: 100% !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+      }
+      
+      .cards.desktop-layout {
+        flex-direction: column !important;
+      }
+      
+      /* Контролы карточки для мобильных */
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        gap: 8px;
+        padding: 10px 0;
+      }
+      
+      /* Подложка номера детали для мобильных - делаем шире */
+      .pill {
+        background: #fff;
+        border-radius: 20px;
+        padding: 0 20px; /* Увеличиваем внутренние отступы */
+        font-size: 20px;
+        font-weight: bold;
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-width: 100px; /* Минимальная ширина больше */
+        max-width: 150px; /* Максимальная ширина больше */
+      }
+      
+      .controls input {
+        width: 60px;
+        height: 60px;
+        padding: 0 12px;
+        border: none;
+        border-radius: 16px;
+        text-align: center;
+        background: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.2s ease;
+      }
+      
+      .btn {
+        height: 60px;
+        padding: 0 24px;
+        border: none;
+        border-radius: 16px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      
+      .btn-add {
+        background: linear-gradient(to bottom, #1f2937, #0d1520);
+        color: #fff;
+        min-width: 140px;
+      }
+      
+      .btn-info {
+        background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+        color: #000;
+        min-width: 60px;
+        justify-content: center;
+      }
+      
+      .btn-take {
+        background: linear-gradient(to bottom, #dc143c, #b01030);
+        color: #fff;
+        min-width: 140px;
+      }
+      
+      /* Часть названия детали */
+      .part-name-container {
+        display: flex;
+        align-items: center;
+        margin: 12px 0;
+        padding: 0 12px;
+        background: #ffffff;
+        border-radius: 16px;
+        min-height: 60px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .part-name-text {
+        flex: 1;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: left;
+        padding: 16px 0;
+      }
+      
+      .part-name-edit-btn,
+      .part-name-save-btn,
+      .part-name-cancel-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dc143c;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        margin-left: 8px;
+      }
+      
+      .part-name-input {
+        flex: 1;
+        height: 52px;
+        border: 2px solid #dc143c;
+        border-radius: 12px;
+        outline: none;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 0 12px;
+      }
+      
+      /* Верхние контролы для мобильных */
+      .top-controls {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 8px;
+        max-width: 900px;
+        margin: 0 auto 20px;
+        align-items: center;
+        padding-bottom: 8px;
+        box-sizing: border-box;
+        overflow-x: auto;
+      }
+      
+      .top-controls .btn-top {
+        height: 56px;
+        font-size: 18px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-grow: 1;
+        min-width: 90px;
+        max-width: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-family: inherit;
+        padding: 0 16px;
+        gap: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      
+      .select-wrapper {
+        position: relative;
+        min-width: 120px;
+        max-width: 150px;
+        height: 56px;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+      }
+      
+      /* Иконка удаления */
+      .media-block .icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dc143c;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 28px;
+        color: #fff;
+        z-index: 2;
+      }
+      
+      /* Пагинация для мобильных */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+        gap: 10px;
+        flex-wrap: nowrap;
+        width: 100%;
+        max-width: 900px;
+        margin: 50px auto;
+      }
+      
+      .pagination button {
+        padding: 18px 30px;
+        font-size: 20px;
+        min-width: 140px;
+        height: 60px;
+      }
+      
+      .page-numbers button {
+        min-width: 40px;
+        height: 60px;
+        padding: 0 20px;
+        font-size: 20px;
+      }
+      
+      /* Модальное окно для мобильных */
+      .modal {
+        padding: 40px;
+        width: 80vw;
+      }
+      
+      .modal pre {
+        font-size: 26px;
+        padding: 20px;
+      }
+      
+      .modal-close {
+        font-size: 40px;
+      }
+    }
+    
+    /* Стили для десктопной версии (1025px и выше) */
+    @media (min-width: 1025px) {
+      /* Уменьшаем шапку до минимума */
+      header {
+        height: 75px;
+        padding: 4px 8px;
+      }
+      
+      .logo img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      /* РАЗМЕР ШРИФТА ДЛЯ ПК - МОЖНО МЕНЯТЬ */
+      .site-name-text {
+        font-size: 32px; /* ← ИЗМЕНИ ЭТО ЧИСЛО ДЛЯ ПК */
+        margin-bottom: 0;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-family: 'Arial', sans-serif;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      
+      .menu-button {
+        width: 40px;
+        height: 28px;
+      }
+      
+      .menu-button div {
+        height: 3px;
+        border-radius: 2px;
+      }
+      
+      /* Корректируем положение выпадающих меню */
+      .dropdown {
+        top: 95px;
+        right: 8px;
+        min-width: 220px;
+        border-radius: 8px;
+        border-width: 1px;
+      }
+      
+      .dropdown a {
+        padding: 12px 15px;
+        font-size: 18px;
+      }
+      
+      .dropdown-sites {
+        min-width: 180px;
+        border-radius: 8px;
+        top: calc(100% + 20px);
+        border-width: 1px;
+      }
+      
+      .dropdown-sites a {
+        padding: 8px 40px;
+        font-size: 20px;
+      }
+      
+      /* Корректируем отступ контента */
+      #content {
+        margin-top: 95px;
+      }
+      
+      /* ИСПРАВЛЕНО: Уменьшаем боковые отступы на body */
+      body {
+        padding: 8px 4px;
+      }
+      
+      /* ИСПРАВЛЕНО: Верхние контролы - равномерное распределение */
+      .top-controls {
+        max-width: 1300px;
+        margin-bottom: 8px;
+        gap: 6px;
+        padding: 0 4px 8px;
+      }
+      
+      .top-controls .btn-top {
+        height: 34px;
+        font-size: 12px;
+        padding: 0 8px;
+        border-radius: 8px;
+        gap: 4px;
+      }
+      
+      .select-wrapper {
+        height: 34px;
+        min-width: 0;
+        max-width: none;
+        border-radius: 8px;
+      }
+      
+      .select-wrapper::before {
+        font-size: 12px;
+        gap: 4px;
+      }
+      
+      .select-wrapper select {
+        font-size: 12px;
+        padding: 0 25px 0 8px;
+      }
+      
+      .select-wrapper::after {
+        right: 8px;
+        font-size: 12px;
+      }
+      
+      /* ИСПРАВЛЕНО: Десктопный layout для карточек */
+      .cards.desktop-layout {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+        max-width: 1300px;
+      }
+      
+      /* Делаем карточки шириной ровно под 3 в ряд */
+      .card.desktop-layout {
+        width: calc((100% - 16px) / 3) !important;
+        max-width: none !important;
+        margin: 0 !important;
+        flex: 0 0 auto;
+        box-sizing: border-box;
+        min-height: 320px;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      
+      .media-block {
+        border-radius: 6px;
+        padding-top: 65%;
+      }
+      
+      .media-block .icon {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+        border-radius: 3px;
+      }
+      
+      .remove {
+        top: 4px;
+        right: 4px;
+      }
+      
+      .part-name-container {
+        min-height: 34px;
+        margin: 6px 0;
+        padding: 0 6px;
+        border-radius: 8px;
+      }
+      
+      .part-name-text {
+        font-size: 13px;
+        padding: 8px 0;
+      }
+      
+      .part-name-input {
+        height: 30px;
+        font-size: 13px;
+        border-radius: 6px;
+        padding: 0 6px;
+        border-width: 1px;
+      }
+      
+      .part-name-edit-btn,
+      .part-name-save-btn,
+      .part-name-cancel-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+        margin-left: 4px;
+        border-radius: 4px;
+      }
+      
+      /* ИСПРАВЛЕНО: Делаем контролы карточки компактнее для ПК */
+      .controls {
+        margin-top: 8px;
+        gap: 4px;
+        padding: 6px 0;
+        flex-wrap: nowrap;
+      }
+      
+      .pill {
+        height: 30px;
+        font-size: 11px;
+        padding: 0 8px;
+        border-radius: 12px;
+        max-width: 100px;
+        min-width: 60px;
+      }
+      
+      .controls input {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+        border-radius: 6px;
+        padding: 0 2px;
+        min-width: 30px;
+      }
+      
+      .btn {
+        height: 30px;
+        font-size: 11px;
+        padding: 0 8px;
+        min-width: 70px;
+        border-radius: 6px;
+        gap: 3px;
+      }
+      
+      .btn-info {
+        min-width: 30px;
+        padding: 0 4px;
+      }
+      
+      /* Иконки в кнопках */
+      .btn i {
+        font-size: 10px;
+      }
+      
+      /* Скрываем текст в кнопках на очень узких карточках */
+      @media (min-width: 1025px) and (max-width: 1150px) {
+        .btn-add span,
+        .btn-take span {
+          display: none;
+        }
+        
+        .btn-add,
+        .btn-take {
+          min-width: 40px;
+          padding: 0 6px;
+          justify-content: center;
+        }
+        
+        .btn-add i,
+        .btn-take i {
+          margin: 0;
+        }
+      }
+      
+      /* Уменьшаем пагинацию */
+      .pagination {
+        max-width: 1300px;
+        margin: 20px auto;
+        gap: 4px;
+      }
+      
+      .pagination button {
+        padding: 8px 12px;
+        font-size: 13px;
+        height: 36px;
+        min-width: 90px;
+        border-radius: 6px;
+        gap: 4px;
+      }
+      
+      .page-numbers button {
+        height: 36px;
+        font-size: 13px;
+        padding: 0 12px;
+        min-width: 24px;
+        border-radius: 8px;
+      }
+      
+      .pagination button i {
+        font-size: 14px;
+      }
+      
+      /* Уменьшаем модальное окно */
+      .modal {
+        padding: 12px;
+        border-radius: 8px;
+      }
+      
+      .modal h3 {
+        font-size: 14px;
+        padding-bottom: 6px;
+      }
+      
+      .modal pre {
+        font-size: 12px;
+        padding: 6px;
+        line-height: 1.2;
+      }
+      
+      .modal-close {
+        font-size: 20px;
+        top: 4px;
+        right: 8px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -804,7 +1399,7 @@
   <div class="logo"><img src="https://i.postimg.cc/wjGzSY92/1.png" alt="Logo"></div>
   <div class="site-name">
     <div class="site-name-dropdown" onclick="toggleSitesDropdown(event)">
-      LUCKY STRIKE KH
+      <span class="site-name-text">LUCKY STRIKE KH</span> <!-- ← ДОБАВЛЕН КЛАСС -->
       <div class="dropdown-sites" id="sitesDropdown">
         <a href="https://smart-bowling.github.io/PARTS-BB/">BLOCKBUSTER</a>
         <a href="https://smart-bowling.github.io/PARTS-SKYMALL/">SKYMALL</a>
@@ -862,7 +1457,7 @@
 </button>
     
   <button onclick="window.open('https://smart-bowling.github.io/ADD-PARTS-KH/', '_blank')" class="btn-top">
-    <i class="fas fa-plus-circle"></i> Добавить деталь
+    <i class="fas fa-plus-circle"></i> Добавить
   </button>
 </div>
 
@@ -969,7 +1564,7 @@
     let currentEntries = [];
     let currentPage = 1;
     let totalPages = 1;
-    const cardsPerPage = 5;
+    const cardsPerPage = 30; // Оставляем 6 карточек на странице (по 3 в 2 ряда)
 
     // Основные функции приложения
     async function getEntries() {
@@ -1056,19 +1651,13 @@
         const iframe = document.createElement('iframe');
         iframe.src = entry.fileUrl;
         media.appendChild(iframe);
-} else if (entry.fileUrl) {
-  const img = document.createElement('img');
-
-  // Используем готовый оптимизированный URL Cloudinary
-  img.src = entry.fileUrl;
-
-  img.loading = 'lazy';
-  img.decoding = 'async';
-
-  media.appendChild(img);
-}
-
-
+      } else if (entry.fileUrl) {
+        const img = document.createElement('img');
+        img.src = entry.fileUrl;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        media.appendChild(img);
+      }
 
       const overlay = document.createElement('div');
       overlay.className = 'img-overlay';
@@ -1113,15 +1702,15 @@
 
       const btnAdd = document.createElement('button');
       btnAdd.className = 'btn btn-add';
-      btnAdd.innerHTML = '<i class="fas fa-plus-circle"></i> ДОБАВИТЬ';
+      btnAdd.innerHTML = '<i class="fas fa-plus-circle"></i> <span>ДОБАВИТЬ</span>';
 
       const btnInfo = document.createElement('button');
       btnInfo.className = 'btn btn-info';
-      btnInfo.innerHTML = '<i class="fas fa-history"></i> ИСТОРИЯ';
+      btnInfo.innerHTML = '<i class="fas fa-history"></i> <span>ИСТОРИЯ</span>';
 
       const btnTake = document.createElement('button');
       btnTake.className = 'btn btn-take';
-      btnTake.innerHTML = '<i class="fas fa-shopping-cart"></i> ВЗЯТЬ';
+      btnTake.innerHTML = '<i class="fas fa-shopping-cart"></i> <span>ВЗЯТЬ</span>';
 
       controls.append(pill, qtyInput, btnAdd, btnInfo, btnTake);
       div.append(controls);
@@ -1250,12 +1839,9 @@
 
     function updateTotalPages() {
       totalPages = Math.ceil(currentEntries.length / cardsPerPage) || 1;
-      console.log('Updated total pages:', totalPages);
     }
 
     function renderPage(page) {
-      console.log(`Rendering page ${page} of ${totalPages}`);
-      
       const container = document.getElementById('cardsContainer');
       if (!container) {
         console.error('Cards container not found!');
@@ -1281,6 +1867,11 @@
       renderPageNumbers();
       updatePaginationControls();
       window.scrollTo(0, 0);
+      
+      // Применяем десктопный layout если нужно
+      if (window.innerWidth > 1024) {
+        toggleDesktopLayout(true);
+      }
     }
 
     function renderPageNumbers() {
@@ -1445,6 +2036,64 @@
 
     loadData();
   }
+  
+  // Функция для включения/выключения десктопного layout
+  function toggleDesktopLayout(enable) {
+    const cardsContainer = document.getElementById('cardsContainer');
+    const cards = document.querySelectorAll('.card');
+    const topControls = document.querySelector('.top-controls');
+    
+    if (!cardsContainer || cards.length === 0) return;
+    
+    if (enable) {
+      // Включаем десктопный layout
+      cardsContainer.classList.add('desktop-layout');
+      
+      cards.forEach(card => {
+        card.classList.add('desktop-layout');
+      });
+      
+      // Ограничиваем максимальную ширину контейнера карточек
+      cardsContainer.style.maxWidth = '1300px';
+      cardsContainer.style.margin = '0 auto';
+      cardsContainer.style.padding = '0';
+      cardsContainer.style.boxSizing = 'border-box';
+      
+      // Ограничиваем максимальную ширину верхних контролов
+      if (topControls) {
+        topControls.style.maxWidth = '1300px';
+        topControls.style.margin = '0 auto 12px';
+      }
+    } else {
+      // Выключаем десктопный layout (мобильный вид)
+      cardsContainer.classList.remove('desktop-layout');
+      
+      cards.forEach(card => {
+        card.classList.remove('desktop-layout');
+      });
+      
+      cardsContainer.style.maxWidth = 'none';
+      cardsContainer.style.margin = '0';
+      cardsContainer.style.padding = '0';
+      
+      if (topControls) {
+        topControls.style.maxWidth = 'none';
+        topControls.style.margin = '0 auto 20px';
+      }
+    }
+  }
+
+  // Обновляем layout при изменении размера окна
+  window.addEventListener('resize', function() {
+    const cardsContainer = document.getElementById('cardsContainer');
+    if (!cardsContainer) return;
+    
+    if (window.innerWidth > 1024) {
+      toggleDesktopLayout(true);
+    } else {
+      toggleDesktopLayout(false);
+    }
+  });
 </script>
 </body>
 </html>
