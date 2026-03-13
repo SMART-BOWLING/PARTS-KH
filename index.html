@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>ДЕТАЛИ KH</title>
+  <title>ДЕТАЛИ KH (двойное нажатие)</title>
   <link rel="icon" type="image/png" href="https://i.postimg.cc/dtSpKx0W/1.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Identity Script -->
@@ -2289,7 +2289,9 @@
 
     let isPanelActive = false;
 
+    // ИСПРАВЛЕННЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ "ВЗЯТЬ"
     btnTake.onclick = async (e) => {
+      e.preventDefault(); // Предотвращаем стандартное поведение кнопки
       e.stopPropagation();
       
       if (!isPanelActive) {
@@ -2336,10 +2338,21 @@
           return;
         }
         
+        // Сохраняем текущую позицию прокрутки
+        const scrollPosition = window.scrollY;
+        
         await updateQuantity(data.partNumber, -qty, machine);
         
         takePanel.classList.remove('active');
         isPanelActive = false;
+        
+        // Восстанавливаем позицию прокрутки после обновления данных
+        setTimeout(() => {
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: 'auto'
+          });
+        }, 10);
       }
     };
 
@@ -2438,6 +2451,9 @@
     const container = document.getElementById('cardsContainer');
     if (!container) return;
     
+    // Сохраняем позицию прокрутки перед рендерингом
+    const scrollPosition = window.scrollY;
+    
     container.innerHTML = '';
 
     const start = (page - 1) * cardsPerPage;
@@ -2455,7 +2471,13 @@
 
     renderPageNumbers();
     updatePaginationControls();
-    window.scrollTo(0, 0);
+    
+    // Восстанавливаем позицию прокрутки (если это не навигация по страницам)
+    // Для навигации по страницам все равно прокручиваем вверх, так как это ожидаемое поведение
+    // Для операций внутри карточки - восстанавливаем позицию
+    if (window.scrollRestoration !== 'manual') {
+      window.scrollTo(0, scrollPosition);
+    }
     
     if (window.innerWidth > 1024) {
       container.classList.add('desktop-layout');
