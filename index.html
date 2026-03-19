@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -320,33 +320,6 @@
       height: 100%;
       background: transparent;
       z-index: 1;
-    }
-
-    .media-block .icon {
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #dc143c;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 28px;
-      color: #fff;
-      z-index: 2;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .media-block .icon:hover {
-      background: #ff1940;
-      transform: scale(1.1);
-    }
-
-    .remove {
-      top: 8px;
-      right: 8px;
     }
 
     .part-name-container {
@@ -1231,20 +1204,6 @@
         flex-shrink: 0;
       }
       
-      .media-block .icon {
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #dc143c;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 28px;
-        color: #fff;
-        z-index: 2;
-      }
-      
       .pagination {
         display: flex;
         justify-content: center;
@@ -1421,18 +1380,6 @@
       .media-block {
         border-radius: 6px;
         padding-top: 65%;
-      }
-      
-      .media-block .icon {
-        width: 28px;
-        height: 28px;
-        font-size: 18px;
-        border-radius: 3px;
-      }
-      
-      .remove {
-        top: 4px;
-        right: 4px;
       }
       
       .part-name-container {
@@ -1989,23 +1936,7 @@
     }
   }
 
-  async function deleteEntry(rowIndex) {
-    showOperationLoader(true);
-    try {
-      const res = await fetch(`${APPS_SCRIPT_URL}?action=deleteEntry&rowIndex=${rowIndex}`);
-      const data = await res.json();
-      if (data.status === 'success') {
-        allEntries = await loadAllData();
-        currentEntries = [...allEntries];
-        updateTotalPages();
-        if (currentPage > totalPages) currentPage = totalPages;
-        renderPage(currentPage);
-      }
-      return data;
-    } finally {
-      showOperationLoader(false);
-    }
-  }
+  // Функция deleteEntry удалена
 
   async function getHistory(partNumber) {
     showOperationLoader(true);
@@ -2081,7 +2012,6 @@
     });
   }
 
-  // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ createTakePanel =====
   function createTakePanel(partNumber, availableQty, takeButton) {
     const panel = document.createElement('div');
     panel.className = 'take-quick-panel';
@@ -2137,7 +2067,6 @@
     row.appendChild(machineField);
     panel.appendChild(row);
     
-    // Создаем объект для хранения данных панели
     const panelData = {
       panel: panel,
       qtySelect: qtySelect,
@@ -2148,7 +2077,6 @@
       availableQty: availableQty
     };
     
-    // Обработчик для выбора количества
     qtySelect.addEventListener('change', function() {
       if (this.value === 'other') {
         const qtyStr = prompt('Введите количество:', '1');
@@ -2157,7 +2085,6 @@
           if (!isNaN(qty) && qty > 0) {
             panelData.customQty = qty;
             
-            // Создаем временную опцию с введенным значением
             const existingCustom = Array.from(qtySelect.options).find(opt => opt.value === 'custom');
             if (existingCustom) qtySelect.remove(existingCustom.index);
             
@@ -2176,14 +2103,12 @@
       }
     });
     
-    // Обработчик для выбора машины
     machineSelect.addEventListener('change', function() {
       if (this.value === 'Другое') {
         const machine = prompt('Введите номер машины:', '');
         if (machine !== null && machine.trim() !== '') {
           panelData.customMachine = machine.trim();
           
-          // Создаем временную опцию с введенным значением
           const existingCustom = Array.from(machineSelect.options).find(opt => opt.value === 'custom');
           if (existingCustom) machineSelect.remove(existingCustom.index);
           
@@ -2199,7 +2124,6 @@
       }
     });
     
-    // Сохраняем panelData в кнопке
     takeButton.panelData = panelData;
     
     return panel;
@@ -2232,10 +2156,8 @@
     overlay.className = 'img-overlay';
     media.appendChild(overlay);
 
-    const rem = document.createElement('div');
-    rem.className = 'icon remove';
-    rem.textContent = 'Х';
-    media.append(rem);
+    // КНОПКА УДАЛЕНИЯ УДАЛЕНА
+
     div.append(media);
 
     const partNameContainer = document.createElement('div');
@@ -2289,9 +2211,8 @@
 
     let isPanelActive = false;
 
-    // ИСПРАВЛЕННЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ "ВЗЯТЬ"
     btnTake.onclick = async (e) => {
-      e.preventDefault(); // Предотвращаем стандартное поведение кнопки
+      e.preventDefault();
       e.stopPropagation();
       
       if (!isPanelActive) {
@@ -2299,12 +2220,11 @@
         takePanel.classList.add('active');
         isPanelActive = true;
       } else {
-        const data = btnTake.panelData; // Получаем актуальные данные из panelData
+        const data = btnTake.panelData;
         
-        // Получаем количество
         let qty;
         if (data.qtySelect.value === 'custom') {
-          qty = data.customQty; // Берем из panelData
+          qty = data.customQty;
         } else if (data.qtySelect.value === 'other') {
           alert('Сначала выберите количество в поле "Другое"');
           return;
@@ -2312,10 +2232,9 @@
           qty = parseInt(data.qtySelect.value);
         }
         
-        // Получаем номер машины
         let machine;
         if (data.machineSelect.value === 'custom') {
-          machine = data.customMachine; // Берем из panelData
+          machine = data.customMachine;
         } else if (data.machineSelect.value === 'Другое') {
           alert('Сначала введите номер машины в поле "Другое"');
           return;
@@ -2338,7 +2257,6 @@
           return;
         }
         
-        // Сохраняем текущую позицию прокрутки
         const scrollPosition = window.scrollY;
         
         await updateQuantity(data.partNumber, -qty, machine);
@@ -2346,7 +2264,6 @@
         takePanel.classList.remove('active');
         isPanelActive = false;
         
-        // Восстанавливаем позицию прокрутки после обновления данных
         setTimeout(() => {
           window.scrollTo({
             top: scrollPosition,
@@ -2410,13 +2327,6 @@
       });
     });
 
-    rem.onclick = async (e) => {
-      e.stopPropagation();
-      if (confirm('Удалить эту запись?')) {
-        await deleteEntry(entry.rowIndex);
-      }
-    };
-
     btnAdd.onclick = async (e) => {
       e.stopPropagation();
       const deltaStr = prompt('Введите число для добавления:');
@@ -2451,7 +2361,6 @@
     const container = document.getElementById('cardsContainer');
     if (!container) return;
     
-    // Сохраняем позицию прокрутки перед рендерингом
     const scrollPosition = window.scrollY;
     
     container.innerHTML = '';
@@ -2472,9 +2381,6 @@
     renderPageNumbers();
     updatePaginationControls();
     
-    // Восстанавливаем позицию прокрутки (если это не навигация по страницам)
-    // Для навигации по страницам все равно прокручиваем вверх, так как это ожидаемое поведение
-    // Для операций внутри карточки - восстанавливаем позицию
     if (window.scrollRestoration !== 'manual') {
       window.scrollTo(0, scrollPosition);
     }
